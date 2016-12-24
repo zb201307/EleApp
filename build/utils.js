@@ -28,9 +28,9 @@ exports.cssLoaders = function (options) {
     // Extract CSS when that option is specified
     // (which is the case during production build)
     if (options.extract) {
-      return ExtractTextPlugin.extract('vue-stylus-loader', sourceLoader)
+      return ExtractTextPlugin.extract('vue-style-loader', sourceLoader)
     } else {
-      return ['vue-stylus-loader', sourceLoader].join('!')
+      return ['vue-style-loader', sourceLoader].join('!')
     }
   }
 
@@ -46,7 +46,7 @@ exports.cssLoaders = function (options) {
   }
 }
 
-// Generate loaders for standalone stylus files (outside of .vue)
+// Generate loaders for standalone style files (outside of .vue)
 exports.styleLoaders = function (options) {
   var output = []
   var loaders = exports.cssLoaders(options)

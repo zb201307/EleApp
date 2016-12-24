@@ -17,6 +17,36 @@ var proxyTable = config.dev.proxyTable
 var app = express()
 var compiler = webpack(webpackConfig)
 
+
+var data = require("../data.json");
+var seller = data.seller;
+var ratings = data.ratings;
+var goods = data.goods;
+var apiRouter = express.Router();
+apiRouter.get("/seller",function(req,res){
+  console.log(seller);
+  res.json({
+    code:1,
+    data:seller
+  });
+});
+
+apiRouter.get("/ratings",function(req,res){
+  res.json({
+    code:1,
+    data:ratings
+  });
+});
+
+apiRouter.get("/goods",function(req,res){
+  res.json({
+    code:1,
+    data:goods
+  });
+});
+
+app.use('/api',apiRouter);
+
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,
   stats: {
@@ -56,6 +86,7 @@ app.use(hotMiddleware)
 // serve pure static assets
 var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
 app.use(staticPath, express.static('./static'))
+
 
 module.exports = app.listen(port, function (err) {
   if (err) {
